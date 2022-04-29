@@ -92,7 +92,7 @@ namespace InternshipTaskAkvelon.Controllers
             _akvelonTaskContext.SaveChanges();
             return Ok();
         }
-        
+
         /// <summary>
         /// Method will edit task details
         /// </summary>
@@ -118,9 +118,9 @@ namespace InternshipTaskAkvelon.Controllers
         }
 
         #endregion
-        
+
         #region Post Requests
-        
+
         /// <summary>
         /// Method will add new project
         /// </summary>
@@ -176,7 +176,20 @@ namespace InternshipTaskAkvelon.Controllers
             _akvelonTaskContext.Projects.Remove(
                 _akvelonTaskContext.Projects.FirstOrDefault(project => project.Id == id)!);
             _akvelonTaskContext.SaveChanges();
-            
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Method deletes task by id
+        /// </summary>
+        /// <param name="id">Task id</param>
+        [HttpDelete, Route("delete/task/{id:int}")]
+        public ActionResult DeleteTask(int id)
+        {
+            _akvelonTaskContext.Tasks.Remove(_akvelonTaskContext.Tasks.FirstOrDefault(task => task.Id == id)!);
+            _akvelonTaskContext.SaveChanges();
+
             return Ok();
         }
 
