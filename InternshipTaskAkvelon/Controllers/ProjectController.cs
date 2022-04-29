@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using InternshipTaskAkvelon.DTO;
 using InternshipTaskAkvelon.Interfaces;
@@ -62,6 +63,16 @@ namespace InternshipTaskAkvelon.Controllers
             if (list != null) response.AddRange(list.Select(t => _responseFactory.BuildTask(t)));
 
             return Json(response);
+        }
+
+        [HttpGet, Route("filter")]
+        public ActionResult<List<ProjectResponse>> Filter([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        {
+            var list = _akvelonTaskContext.Projects.Where(project =>
+                    project.CreationDate >= startDate && project.CompletionDate <= endDate)
+                .Select(project => _responseFactory.BuildProject(project)).ToList();
+
+            return Json(list);
         }
 
         #endregion
