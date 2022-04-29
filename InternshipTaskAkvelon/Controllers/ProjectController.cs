@@ -142,6 +142,26 @@ namespace InternshipTaskAkvelon.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Method will add new task
+        /// </summary>
+        /// <param name="dto">Task details</param>
+        [HttpPost, Route("create/task")]
+        public ActionResult CreateTask([FromBody] TaskDTO dto)
+        {
+            var task = new Task
+            {
+                Name = dto.Name,
+                Description = dto.Description,
+                Status = dto.Status,
+                Priority = dto.Priority,
+                ProjectId = dto.ProjectId
+            };
+            _akvelonTaskContext.Tasks.Add(task);
+            _akvelonTaskContext.SaveChanges();
+            return Ok();
+        }
+
         #endregion
     }
 }
