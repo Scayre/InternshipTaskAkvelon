@@ -163,5 +163,23 @@ namespace InternshipTaskAkvelon.Controllers
         }
 
         #endregion
+
+        #region Delete Requests
+
+        /// <summary>
+        /// Method deletes project by id
+        /// </summary>
+        /// <param name="id">Project id</param>
+        [HttpDelete, Route("delete/project/{id:int}")]
+        public ActionResult DeleteProject(int id)
+        {
+            _akvelonTaskContext.Projects.Remove(
+                _akvelonTaskContext.Projects.FirstOrDefault(project => project.Id == id)!);
+            _akvelonTaskContext.SaveChanges();
+            
+            return Ok();
+        }
+
+        #endregion
     }
 }
