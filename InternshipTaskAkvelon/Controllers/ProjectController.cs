@@ -119,5 +119,29 @@ namespace InternshipTaskAkvelon.Controllers
 
         #endregion
         
+        #region Post Requests
+        
+        /// <summary>
+        /// Method will add new project
+        /// </summary>
+        /// <param name="dto">Project details</param>
+        [HttpPost, Route("create/project")]
+        public ActionResult CreateProject([FromBody] ProjectDTO dto)
+        {
+            var project = new Project
+            {
+                Name = dto.Name,
+                Description = dto.Description,
+                CreationDate = dto.StartDate,
+                CompletionDate = dto.CompletionDate,
+                Status = dto.Status,
+                Priority = dto.Priority
+            };
+            _akvelonTaskContext.Projects.Add(project);
+            _akvelonTaskContext.SaveChanges();
+            return Ok();
+        }
+
+        #endregion
     }
 }
